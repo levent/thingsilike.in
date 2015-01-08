@@ -1,0 +1,6 @@
+highlighter: none
+pretty_style: html_extension
+markdown: kramdown
+gems:
+  - jekyll-sitemap
+exclude: [vendor]
