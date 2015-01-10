@@ -10,3 +10,4 @@ _site/
 .rbenv-version
 /vendor/bundle
 .bundle
+/.sass-cache
