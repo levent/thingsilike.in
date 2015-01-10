@@ -1,4 +1,14 @@
 ---
 layout: default
-title: Blank
+title: Things I Like. In
 ---
+
+{% for post in site.posts %}
+  <div class="grid grid-pad">
+    <div class="col-9-12">
+      <h2>{{ post.pretitle }} <span class="punchline">{{ post.subtitle }}</span></h2>
+      {{post.content }}
+      <p><small>{{ post.date | date: "%b %-d, %Y" }}</small></p>
+    </div>
+  </div>
+{% endfor %}
