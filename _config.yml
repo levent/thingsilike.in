@@ -1,6 +1,7 @@
 # Site settings
 title: Things I Like. In Words
-email:
+permalink: /:year/:month/:title/
+email: levent@purebreeze.com
 description: > # this means to ignore newlines until "baseurl:"
   Things I Like In Words.
   TIL.
