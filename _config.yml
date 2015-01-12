@@ -9,9 +9,11 @@ description: > # this means to ignore newlines until "baseurl:"
   as opposed to only snapping photos.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://thingsilike.in" # the base hostname & protocol for your site
-twitter_username:
-github_username:
+twitter_username: lebreeze
+github_username: levent
 
 # Build settings
 markdown: kramdown
 exclude: [vendor]
+gems:
+  - jekyll-sitemap
