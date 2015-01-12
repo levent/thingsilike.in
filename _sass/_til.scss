@@ -17,20 +17,17 @@ h2 {
 h3 {
   font-size: 2em;
 }
-a, a:visited {
-  color: #444;
-}
-span.breeze {
-  font-style: italic;
-  color: #0DA4BC;
-}
 p {
   font-size:1.2em;
 }
-.header h2 {
-  font-size: 1em;
-  margin: 0;
-  padding: 0;
+.header {
+  a, a:visited {
+    text-decoration: none;
+    color: #222;
+  }
+  a:hover {
+    color: #0DA4BC;
+  }
 }
 .punchline {
   color: #666;
