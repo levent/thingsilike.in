@@ -1,8 +1,12 @@
 # Site settings
-title: Things I Like. In
+title: Things I Like. In Words
 email:
 description: > # this means to ignore newlines until "baseurl:"
-  Things I Like. In (TIL). Blog.
+  Things I Like In Words.
+  TIL.
+  This is a personal blog
+  to get me in the habit of writing words
+  as opposed to only snapping photos.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://thingsilike.in" # the base hostname & protocol for your site
 twitter_username:
