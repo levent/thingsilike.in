@@ -4,7 +4,6 @@ body {
 h1, h2, h3 {
   font-family: "clavo", Georgia, serif;
   font-weight: 700;
-  margin-bottom: 0;
 }
 h1 {
   font-size: 5em;
@@ -16,6 +15,7 @@ h2 {
 }
 h3 {
   font-size: 2em;
+  color: $grey-color-dark;
 }
 p {
   font-size:1.2em;
@@ -30,7 +30,7 @@ p {
   }
 }
 .punchline {
-  color: #666;
+  color: $grey-color;
 }
 
 @media only screen and (max-width: 767px) {
