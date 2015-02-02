@@ -4,7 +4,7 @@ layout: default
 <div class="grid grid-pad">
   <div class="col-9-12">
     <h2>{{ page.pretitle }} <span class="punchline">{{ page.subtitle }}</span></h2>
-    {{page.content }}
-    <p><small>{{ page.date | date: "%b %-d, %Y" }}</small></p>
+    {{ content }}
+    <p><small class="post-meta">{{ page.date | date: "%b %-d, %Y" }}</small></p>
   </div>
 </div>
