@@ -25,3 +25,5 @@ Each day generally consists of working on some of the following:
 5. Part-time Agile Coaching
 
 Let's see what this list looks like in a year. Right now I hope it doesn't change too much.
+
+**UPDATE**: [Agileista is now fully open-source](https://github.com/levent/agileista/)
