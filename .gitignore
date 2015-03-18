@@ -11,3 +11,4 @@ _site/
 /vendor/bundle
 .bundle
 /.sass-cache
+/node_modules/
