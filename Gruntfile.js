@@ -38,7 +38,7 @@ module.exports = function(grunt) {
       },
       dist: {
         options: {
-          generatedImagesDir: '<%= yeoman.dist %>/img/generated'
+          generatedImagesDir: 'dist/img/generated'
         }
       },
       server: {
@@ -69,9 +69,81 @@ module.exports = function(grunt) {
       }
     },
 
+    // Usemin adds files to concat
+    concat: {},
+    // Usemin adds files to uglify
+    uglify: {},
+    // Usemin adds files to cssmin
 
+    useminPrepare: {
+      options: {
+        dest: 'dist'
+      },
+      html: 'dist/index.html'
+    },
+    usemin: {
+      options: {
+        assetsDirs: ['dist', 'dist/img']
+      },
+      html: ['dist/**/*.html'],
+      css: ['dist/css/**/*.css']
+    },
+
+    htmlmin: {
+      dist: {
+        options: {
+          collapseWhitespace: true,
+          collapseBooleanAttributes: true,
+          removeAttributeQuotes: true,
+          removeRedundantAttributes: true
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist',
+          src: '**/*.html',
+          dest: 'dist'
+        }]
+      }
+    },
+
+    filerev: {
+      options: {
+        length: 8
+      },
+      dist: {
+        files: [{
+          src: [
+            'dist/js/**/*.js',
+            'dist/css/**/*.css',
+            'dist/img/**/*.{gif,jpg,jpeg,png,svg,webp}',
+            'dist/fonts/**/*.{eot*,otf,svg,ttf,woff}'
+          ]
+        }]
+      }
+    },
 
     copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'app',
+          src: [
+            // Jekyll processes and moves HTML and text files.
+            // Usemin moves CSS and javascript inside of Usemin blocks.
+            // Copy moves asset files and directories.
+            'img/**/*',
+            'fonts/**/*',
+            // Like Jekyll, exclude files & folders prefixed with an underscore.
+            '!**/_*{,/**}',
+            // Explicitly add any files your site needs for distribution here.
+            // '_bower_components/jquery/jquery.min.js',
+            'favicon.ico',
+            'apple-touch*.png'
+          ],
+          dest: 'dist'
+        }]
+      },
       // Copy CSS into .tmp directory for Autoprefixer processing
       stageCss: {
         files: [{
@@ -125,6 +197,13 @@ module.exports = function(grunt) {
           watchTask: true
         }
       },
+      dist: {
+        options: {
+          server: {
+            baseDir: 'dist'
+          }
+        }
+      }
     },
 
     concurrent: {
@@ -134,8 +213,8 @@ module.exports = function(grunt) {
         'jekyll:server'
       ],
       dist: [
-        // 'compass:dist',
-        // 'copy:dist'
+        'compass:dist',
+        'copy:dist'
       ]
     },
 
@@ -147,15 +226,40 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-compass');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-filerev');
   grunt.loadNpmTasks('grunt-jekyll');
-  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-browser-sync');
 
   // Default task(s).
   grunt.registerTask('default', ['sass', 'cssmin']);
 
+  grunt.registerTask('build', [
+    // 'clean',
+    // Jekyll cleans files from the target directory, so must run first
+    'jekyll:dist',
+    'concurrent:dist',
+    'useminPrepare',
+    // 'concat',
+    // 'autoprefixer:dist',
+    'cssmin',
+    // 'uglify',
+    // 'imagemin',
+    // 'svgmin',
+    'filerev',
+    'usemin',
+    'htmlmin'
+    ]);
+
   grunt.registerTask('serve', function (target) {
+    if (target === 'dist') {
+      return grunt.task.run(['build', 'browserSync:dist']);
+    }
+
     grunt.task.run([
       // 'clean:server',
       'concurrent:server',

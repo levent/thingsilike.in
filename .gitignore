@@ -14,3 +14,5 @@ _site/
 /node_modules/
 .jekyll/
 .tmp/
+
+/dist/
