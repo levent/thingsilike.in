@@ -8,7 +8,11 @@
   <meta name="author" content="Levent Ali" />
 
   <link rel="icon" href="img/tilicon.png">
-  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+
+  <!-- build:css({app,.tmp}) /css/main.css -->
+  <link rel="stylesheet" href="/css/main.css">
+  <!-- endbuild -->
+
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
   <script>
