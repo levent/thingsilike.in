@@ -274,7 +274,7 @@ module.exports = function(grunt) {
       dist: {
         options: {
           remote: 'git@github.com:levent/thingsilike.in.git',
-          branch: 'gh-pages-staging',
+          branch: 'gh-pages',
           commit: true,
           push: true
         }
