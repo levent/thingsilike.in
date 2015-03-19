@@ -6,9 +6,9 @@ filename=`date +"%Y-%m-%d"`-$title.markdown
 nowtime=`date +"%Y-%m-%d %H:%M:%S"`
 pretitle=$(echo $input | awk '{print $1;}')
 subtitle=$(echo $input | awk '{print $NF}')
-touch ./_posts/$filename
+touch ./app/_posts/$filename
 
-cat > ./_posts/$filename <<endmsg
+cat > ./app/_posts/$filename <<endmsg
 ---
 layout: post
 pretitle: "$input" # EDITME
