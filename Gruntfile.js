@@ -1,5 +1,10 @@
 module.exports = function(grunt) {
 
+  // Show elapsed time after tasks run
+  require('time-grunt')(grunt);
+  // Load all Grunt tasks
+  require('load-grunt-tasks')(grunt);
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -22,6 +27,37 @@ module.exports = function(grunt) {
       }
     },
 
+    autoprefixer: {
+      options: {
+        browsers: ['last 2 versions']
+      },
+      dist: {
+        expand: true,
+        cwd: '.tmp',
+        src: '**/{css,concat}/*.css',
+        dest: '.tmp'
+      }
+    },
+
+    clean: {
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            'dist/*',
+            // Running Jekyll also cleans the target directory.  Exclude any
+            // non-standard `keep_files` here (e.g., the generated files
+            // directory from Jekyll Picture Tag).
+            '!dist/.git*'
+          ]
+        }]
+      },
+      server: [
+        '.tmp',
+        '.jekyll'
+      ]
+    },
+
     compass: {
       options: {
         // If you're using global Sass gems, require them here.
@@ -29,7 +65,7 @@ module.exports = function(grunt) {
         sassDir: 'app/_sass',
         cssDir: '.tmp/css',
         imagesDir: 'app/img',
-        javascriptsDir: 'app/js',
+        // javascriptsDir: 'app/js',
         relativeAssets: false,
         httpImagesPath: '/img',
         httpGeneratedImagesPath: '/img/generated',
@@ -49,23 +85,25 @@ module.exports = function(grunt) {
       }
     },
 
-    sass: { // sass tasks
-      dist: {
-        options: {
-          compass: true, // enable the combass lib, more on this later
-          style: 'expanded' // we don't want to compress it
-        },
-        files: {
-          'css/main.css': '_sass/main.scss' // this is our main scss file
-        }
-      }
-    },
-
     cssmin: { // minifying css task
       dist: {
         options: {
           check: 'gzip'
         }
+      }
+    },
+
+    imagemin: {
+      dist: {
+        options: {
+          progressive: true
+        },
+        files: [{
+          expand: true,
+          cwd: 'dist',
+          src: '**/*.{jpg,jpeg,png}',
+          dest: 'dist'
+        }]
       }
     },
 
@@ -113,7 +151,6 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           src: [
-            'dist/js/**/*.js',
             'dist/css/**/*.css',
             'dist/img/**/*.{gif,jpg,jpeg,png,svg,webp}',
             'dist/fonts/**/*.{eot*,otf,svg,ttf,woff}'
@@ -156,25 +193,22 @@ module.exports = function(grunt) {
       }
     },
 
-
-    watch: { // watch task for general work
+    watch: {
       compass: {
         files: ['app/_sass/**/*.{scss,sass}'],
-        tasks: ['compass:server']
+        tasks: ['compass:server', 'autoprefixer:dist']
       },
-      // sass: {
-      //   files: ['app/_sass/**/*.scss'],
-      //   tasks: ['sass']
-      // },
-      styles: {
-        files: ['css/til.css'],
-        tasks: ['cssmin']
+      autoprefixer: {
+        files: ['app/css/**/*.css'],
+        tasks: ['copy:stageCss', 'autoprefixer:dist']
       },
       jekyll: {
-        files: ['app/**/*.{html,yml,md,mkd,markdown}'],
+        files: [
+          'app/**/*.{html,yml,md,mkd,markdown}',
+          '!app/_bower_components/**/*'
+        ],
         tasks: ['jekyll:server']
       }
-
     },
 
     browserSync: {
@@ -183,6 +217,8 @@ module.exports = function(grunt) {
           src: [
             '.jekyll/**/*.html',
             '.tmp/css/**/*.css',
+            '{.tmp,app}/js/**/*.js',
+            'app/_bower_components/**/*.js',
             'app/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
           ]
         },
@@ -220,35 +256,21 @@ module.exports = function(grunt) {
 
   });
 
-  // Load the plugin that provides the "uglify" task.
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-compass');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-htmlmin');
-  grunt.loadNpmTasks('grunt-filerev');
-  grunt.loadNpmTasks('grunt-jekyll');
-  grunt.loadNpmTasks('grunt-usemin');
-  grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-browser-sync');
 
   // Default task(s).
   grunt.registerTask('default', ['sass', 'cssmin']);
 
   grunt.registerTask('build', [
-    // 'clean',
+    'clean',
     // Jekyll cleans files from the target directory, so must run first
     'jekyll:dist',
     'concurrent:dist',
     'useminPrepare',
-    // 'concat',
-    // 'autoprefixer:dist',
+    'concat',
+    'autoprefixer:dist',
     'cssmin',
     // 'uglify',
-    // 'imagemin',
+    'imagemin',
     // 'svgmin',
     'filerev',
     'usemin',
@@ -261,9 +283,9 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      // 'clean:server',
+      'clean:server',
       'concurrent:server',
-     // 'autoprefixer:dist',
+      'autoprefixer:dist',
       'browserSync:server',
       'watch'
     ]);
