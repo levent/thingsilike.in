@@ -325,6 +325,10 @@ module.exports = function(grunt) {
     'htmlmin'
     ]);
 
+  grunt.registerTask('test', function() {
+    console.log("This is javascript, why would I test?");
+  });
+
   grunt.registerTask('deploy', [
     'check',
     'test',
