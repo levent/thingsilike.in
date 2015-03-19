@@ -4,4 +4,4 @@ before_install:
   - "npm install -g grunt-cli"
   - "bundle install"
 install: "npm install"
-script: "grunt check"
+script: "bundle exec grunt check"
