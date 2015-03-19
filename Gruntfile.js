@@ -24,6 +24,34 @@ module.exports = function(grunt) {
           config: '_config.yml',
           dest: '.jekyll'
         }
+      },
+      check: {
+        options: {
+          doctor: true
+        }
+      }
+    },
+
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
+      },
+      all: [
+        'Gruntfile.js',
+        'app/js/**/*.js',
+        'test/spec/**/*.js'
+      ]
+    },
+
+    csslint: {
+      options: {
+        csslintrc: '.csslintrc'
+      },
+      check: {
+        src: [
+          'app/css/**/*.css'
+        ]
       }
     },
 
@@ -242,6 +270,17 @@ module.exports = function(grunt) {
       }
     },
 
+    buildcontrol: {
+      dist: {
+        options: {
+          remote: 'git@github.com:levent/thingsilike.in.git',
+          branch: 'gh-pages-staging',
+          commit: true,
+          push: true
+        }
+      }
+    },
+
     concurrent: {
       server: [
         'compass:server',
@@ -260,6 +299,15 @@ module.exports = function(grunt) {
   // Default task(s).
   grunt.registerTask('default', ['sass', 'cssmin']);
 
+  grunt.registerTask('check', [
+    'clean:server',
+    'jekyll:check',
+    'compass:server',
+    'jshint:all',
+    'csslint:check'
+    // 'scsslint'
+    ]);
+
   grunt.registerTask('build', [
     'clean',
     // Jekyll cleans files from the target directory, so must run first
@@ -275,6 +323,13 @@ module.exports = function(grunt) {
     'filerev',
     'usemin',
     'htmlmin'
+    ]);
+
+  grunt.registerTask('deploy', [
+    'check',
+    'test',
+    'build',
+    'buildcontrol'
     ]);
 
   grunt.registerTask('serve', function (target) {
