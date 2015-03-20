@@ -1,4 +1,4 @@
-if(!!document.getElementById("instafeed")){
+if(!!document.getElementById('instafeed')){
   var feed = new Instafeed({
     get: 'user',
     userId: 1049440,
