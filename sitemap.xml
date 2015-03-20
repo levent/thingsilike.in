@@ -32,8 +32,14 @@
   </url>
   <url>
     <loc>http://thingsilike.in/</loc>
-    <lastmod>2015-03-20T08:19:09+00:00</lastmod>
+    <lastmod>2015-03-20T08:59:09+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://thingsilike.in/pictures.html</loc>
+    <lastmod>2015-03-20T08:59:09+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
