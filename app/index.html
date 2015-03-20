@@ -4,11 +4,13 @@ title: Things I Like. In
 ---
 
 {% for post in site.posts %}
-  <div class="grid grid-pad">
-    <div class="col-9-12">
+<div class="grid grid-pad">
+  <div class="col-9-12">
+    <div class="post-container">
       <h2>{{ post.pretitle }} <span class="punchline">{{ post.subtitle }}</span></h2>
       {{post.content }}
       <p><small class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</small></p>
     </div>
   </div>
+</div>
 {% endfor %}

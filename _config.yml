@@ -16,5 +16,6 @@ github_username: levent
 # Build settings
 markdown: kramdown
 exclude: [vendor]
+highlighter: pygments
 gems:
   - jekyll-sitemap
