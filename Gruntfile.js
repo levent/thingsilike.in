@@ -135,18 +135,18 @@ module.exports = function(grunt) {
       }
     },
 
-    // Usemin adds files to concat
-    concat: {},
-    // Usemin adds files to uglify
-    uglify: {},
-    // Usemin adds files to cssmin
-
     useminPrepare: {
       options: {
         dest: 'dist'
       },
       html: 'dist/index.html'
     },
+
+    // Usemin adds files to concat
+    concat: {},
+    // Usemin adds files to uglify
+    uglify: {},
+    // Usemin adds files to cssmin
     usemin: {
       options: {
         assetsDirs: ['dist', 'dist/img']

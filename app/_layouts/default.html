@@ -15,13 +15,7 @@
       {{ content }}
     </div>
 
-    <!-- build:js js/app.js -->
-    <!-- endbuild -->
-
-    <!-- build:js({app,.tmp}) /js/instagram.js -->
-    <script type="text/javascript" src="/js/loadinstafeed.js"></script>
-    <script type="text/javascript" src="/js/instagram.js"></script>
-    <!-- endbuild -->
+    {% include instajs.html %}
   </body>
 
 </html>
