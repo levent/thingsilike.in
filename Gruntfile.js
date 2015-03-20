@@ -93,7 +93,7 @@ module.exports = function(grunt) {
         sassDir: 'app/_sass',
         cssDir: '.tmp/css',
         imagesDir: 'app/img',
-        // javascriptsDir: 'app/js',
+        javascriptsDir: 'app/js',
         relativeAssets: false,
         httpImagesPath: '/img',
         httpGeneratedImagesPath: '/img/generated',
@@ -179,6 +179,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           src: [
+            'dist/js/**/*.js',
             'dist/css/**/*.css',
             'dist/img/**/*.{gif,jpg,jpeg,png,svg,webp}',
             'dist/fonts/**/*.{eot*,otf,svg,ttf,woff}'
@@ -245,7 +246,8 @@ module.exports = function(grunt) {
           src: [
             '.jekyll/**/*.html',
             '.tmp/css/**/*.css',
-            '{.tmp,app}/js/**/*.js',
+            '.tmp/js/**/*.js',
+            'app/js/**/*.js',
             'app/_bower_components/**/*.js',
             'app/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
           ]
@@ -317,7 +319,7 @@ module.exports = function(grunt) {
     'concat',
     'autoprefixer:dist',
     'cssmin',
-    // 'uglify',
+    'uglify',
     'imagemin',
     // 'svgmin',
     'filerev',
