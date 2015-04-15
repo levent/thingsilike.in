@@ -10,7 +10,7 @@ I've been using Jekyll on GitHub pages for several years.
 
 [LogMeIn](https://secure.logmein.com) use it for [Xively's static site](https://xively.com). I use it for my [personal site](http://www.leventali.com), with clients and for this blog.
 
-It's a great framework for building static sites and not just a blogging platform.
+It's a great framework for building static sites as well as blogs.
 
 You push your changes to a gh-pages branch, it magically compiles and your site renders, for free.
 
